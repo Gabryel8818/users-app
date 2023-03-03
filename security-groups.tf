@@ -10,10 +10,6 @@ resource "aws_security_group" "alb" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-
-  tags = {
-    Name = "allow_tls"
-  }
 }
 
 resource "aws_security_group" "ecs_tasks" {
@@ -22,8 +18,8 @@ resource "aws_security_group" "ecs_tasks" {
   vpc_id = aws_vpc.main.id
 
   ingress {
-    from_port = local.app_config.port
-    to_port = local.app_config.port
+    from_port = local.context[terraform.workspace].app_config.port
+    to_port   = local.context[terraform.workspace].app_config.port
     protocol          = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
