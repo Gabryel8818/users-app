@@ -14,7 +14,7 @@ resource "aws_ecs_service" "users_app_svc" {
   load_balancer {
     target_group_arn = aws_alb_target_group.users_app.id
     container_name   = "nginx-container"
-    container_port   = local.app_config.port
+    container_port   = local.context[terraform.workspace].app_config.port
   }
 
   depends_on = [aws_lb_listener.http]
