@@ -3,8 +3,18 @@ resource "aws_ecs_service" "users_app_svc" {
   cluster         = aws_ecs_cluster.app_cluster.id
   task_definition = aws_ecs_task_definition.nginx_task.arn
   desired_count   = 2
-  launch_type     = "FARGATE"
 
+  capacity_provider_strategy {
+      base              = 0 
+      weight            = 50
+      capacity_provider = "FARGATE"
+  }
+
+  capacity_provider_strategy {
+      base              = 1
+      weight            = 50
+      capacity_provider = "FARGATE_SPOT"
+  }
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
     subnets          = [aws_subnet.private.id]

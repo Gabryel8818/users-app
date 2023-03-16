@@ -7,7 +7,20 @@ locals {
       }
       app_config = {
         port = 80
-        health_check_path = "/"
+        health_check_path = "/ping"
+      }
+      capacity_provider = {
+
+        FARGATE = {
+          provider = "FARGATE"
+          weight = "50"
+          base = "1"
+        }
+        FARGATE_SPOT = {
+          provider = "FARGATE_SPOT"
+          weight = "50"
+          base = "0"
+        }
       }
     }
     sdx = {}
