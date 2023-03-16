@@ -12,8 +12,8 @@ resource "aws_ecs_task_definition" "nginx_task" {
       image                 = "nginx:latest"
       portMappings          = [
         {
-          containerPort     = 80
-          hostPort          = 80
+          containerPort     = 8080
+          hostPort          = 8080
         }
       ]
       memoryReservation     = 128
