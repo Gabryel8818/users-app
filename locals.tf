@@ -6,7 +6,7 @@ locals {
         us-east-1b = "10.0.102.0/25"
       }
       app_config = {
-        port = 80
+        port = 8080
         health_check_path = "/ping"
       }
       capacity_provider = {
