@@ -13,14 +13,14 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name = "users-app-tasks-security-group"
+  name        = "users-app-tasks-security-group"
   description = "Allow inbound access from the ALB only"
-  vpc_id = aws_vpc.main.id
+  vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port = local.context[terraform.workspace].app_config.port
-    to_port   = local.context[terraform.workspace].app_config.port
-    protocol          = "tcp"
+    from_port       = local.context[terraform.workspace].app_config.port
+    to_port         = local.context[terraform.workspace].app_config.port
+    protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
 
