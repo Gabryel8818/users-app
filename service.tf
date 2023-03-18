@@ -5,15 +5,15 @@ resource "aws_ecs_service" "users_app_svc" {
   desired_count   = 2
 
   capacity_provider_strategy {
-      base              = 0 
-      weight            = 50
-      capacity_provider = "FARGATE"
+    base              = 0
+    weight            = 50
+    capacity_provider = "FARGATE"
   }
 
   capacity_provider_strategy {
-      base              = 1
-      weight            = 50
-      capacity_provider = "FARGATE_SPOT"
+    base              = 1
+    weight            = 50
+    capacity_provider = "FARGATE_SPOT"
   }
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
@@ -28,4 +28,10 @@ resource "aws_ecs_service" "users_app_svc" {
   }
 
   depends_on = [aws_lb_listener.http]
+
+  lifecycle {
+    ignore_changes = [
+      task_definition
+    ]
+  }
 }
