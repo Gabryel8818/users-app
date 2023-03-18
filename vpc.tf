@@ -18,7 +18,6 @@ resource "aws_route_table" "private" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.users-app.id
   }
-
 }
 
 resource "aws_route_table_association" "public" {
