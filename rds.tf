@@ -10,12 +10,16 @@ resource "aws_db_instance" "users-app" {
   skip_final_snapshot  = true
   db_subnet_group_name = aws_db_subnet_group.users-app-db.name
   multi_az             = local.context[terraform.workspace].rds.multi_az
+  lifecycle {
+    ignore_changes = [
+      password
+    ]
+  }
 }
 
 resource "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "@#!"
+  length  = 12
+  special = false
 }
 
 resource "aws_db_subnet_group" "users-app-db" {
