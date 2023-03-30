@@ -1,14 +1,9 @@
-resource "aws_secretsmanager_secret" "rds" {
-  name = "rds"
+resource "aws_secretsmanager_secret" "users-app" {
+  name = "users-app-1"
 }
 
-resource "aws_secretsmanager_secret_version" "rds" {
-  secret_id     = aws_secretsmanager_secret.rds.id
-  secret_string = jsonencode(local.rds_secrets) 
-
+resource "aws_secretsmanager_secret_version" "users-app" {
+  secret_id     = aws_secretsmanager_secret.users-app.id
+  secret_string = jsonencode(local.rds_secrets)
 }
 
-
-data "aws_secretsmanager_secret_version" "rds" {
-  secret_id = aws_secretsmanager_secret.rds.id
-}
