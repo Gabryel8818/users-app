@@ -3,6 +3,8 @@ locals {
     name     = aws_db_instance.users-app.db_name
     password = random_password.password.result
     username = aws_db_instance.users-app.username
+    host     = aws_db_instance.users-app.address
+    port     = aws_db_instance.users-app.port
   }
   context = {
     stg = {
@@ -14,7 +16,7 @@ locals {
 
       subnets_database = { us-east-1a = "10.0.128.0/24", us-east-1b = "10.0.64.0/24" }
 
-      app_config = { port = 80, health_check_path = "/" }
+      app_config = { port = 8080, health_check_path = "/ping" }
 
       capacity_provider = {
         FARGATE = {

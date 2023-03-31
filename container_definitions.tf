@@ -2,7 +2,7 @@ locals {
   container_definitions = jsonencode([
     {
       "name" : "nginx-container",
-      "image" : "nginx:latest",
+      "image" : "matheusq94/users-app:v1.0",
       "essential" : true,
       "portMappings" : [
         {
@@ -16,7 +16,7 @@ locals {
       ],
       "secrets" : [
         {
-          "name" : "users-app",
+          "name" : "USERS_APP",
           "valueFrom" : "${aws_secretsmanager_secret.users-app.arn}"
         }
       ]
